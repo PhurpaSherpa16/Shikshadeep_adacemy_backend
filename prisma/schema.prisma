@@ -1,0 +1,309 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model blog {
+  id            String @id @default(uuid())
+  title         String @unique
+  content       String
+  description   String @unique
+  image_url     String
+  thumbnail_url String
+
+  tag_id_fk String
+  tag       blog_tag @relation(fields: [tag_id_fk], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tag_id_fk])
+}
+
+model blog_tag {
+  id    String @id @default(uuid())
+  name  String @unique
+  color String
+
+  blogs blog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, color])
+}
+
+model gallery_post {
+  id              String             @id @default(uuid())
+  title           String             @unique
+  caption         String             @unique
+  images          gallery_image[]
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  galleryPostTags gallery_post_tag[]
+}
+
+model gallery_image {
+  id        String @id @default(uuid())
+  image_url String @unique
+
+  gallery_post_id_fk String
+  post               gallery_post @relation(fields: [gallery_post_id_fk], references: [id], onDelete: Cascade)
+
+  tags gallery_image_tag[]
+
+  createdAt DateTime @default(now())
+
+  @@index([gallery_post_id_fk])
+}
+
+model gallery_tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  images          gallery_image_tag[]
+  galleryPostTags gallery_post_tag[]
+}
+
+model gallery_image_tag {
+  image_id_fk String
+  tag_id_fk   String
+
+  image gallery_image @relation(fields: [image_id_fk], references: [id], onDelete: Cascade)
+  tag   gallery_tag   @relation(fields: [tag_id_fk], references: [id], onDelete: Cascade)
+
+  @@id([image_id_fk, tag_id_fk])
+}
+
+model gallery_post_tag {
+  post_id_fk String
+  tag_id_fk  String
+
+  post gallery_post @relation(fields: [post_id_fk], references: [id], onDelete: Cascade)
+  tag  gallery_tag  @relation(fields: [tag_id_fk], references: [id], onDelete: Cascade)
+
+  @@id([post_id_fk, tag_id_fk])
+}
+
+model school_contact_details {
+  id                     String @id @default(uuid())
+  school_primary_phone   String
+  school_secondary_phone String
+  school_admission_email String
+  school_general_email   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model school_social_media_links {
+  id          String  @id @default(uuid())
+  social_name String
+  social_url  String
+  social_icon String
+  isActive    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([social_name, social_url])
+}
+
+model school_facilities {
+  id                   String @id @default(uuid())
+  facility_name        String
+  facility_description String
+  image_url            String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([facility_name, facility_description, image_url])
+}
+
+model school_advisory_council {
+  id          String  @id @default(uuid())
+  name        String
+  designation String?
+  image_url   String?
+  quotes      String
+  isActive    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, designation, quotes])
+}
+
+model faculty_member {
+  id            String  @id @default(uuid())
+  name          String
+  designation   String?
+  experience    String?
+  image_url     String?
+  qualification String?
+  quotes        String?
+  isActive      Boolean @default(true)
+
+  teacherTagId_fk String
+  teacherTag      teacher_tag @relation(fields: [teacherTagId_fk], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, designation, experience, qualification, quotes])
+  @@index([teacherTagId_fk])
+}
+
+model teacher_tag {
+  id   String @id @default(uuid())
+  name String @unique
+
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  facultyMembers faculty_member[]
+}
+
+model school_flash_notice {
+  id        String    @id @default(uuid())
+  title     String    @unique
+  content   String?
+  isActive  Boolean   @default(true)
+  startDate DateTime?
+  endDate   DateTime?
+  image_url String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model school_notice_board {
+  id        String    @id @default(uuid())
+  title     String
+  content   String?
+  isActive  Boolean   @default(true)
+  startDate DateTime?
+  endDate   DateTime?
+  remarks   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@unique([title, content])
+}
+
+model job_vacancy {
+  id            String    @id @default(uuid())
+  title         String
+  description   String?
+  requirements  String?
+  qualification String?
+  experience    String?
+  jobType       String?
+  salary        String?
+  location      String?
+  isActive      Boolean   @default(false)
+  startDate     DateTime?
+  endDate       DateTime?
+  remarks       String?
+  document_url  String?
+
+  no_of_applicants String @default("1")
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  jobApplications job_application[]
+
+  @@unique([title, jobType, requirements, location])
+}
+
+model job_application {
+  id           String  @id @default(uuid())
+  name         String
+  email        String
+  phone        String
+  cover_letter String?
+  resume_url   String?
+
+  job_vacancy_id_fk String
+  job_vacancy       job_vacancy @relation(fields: [job_vacancy_id_fk], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([job_vacancy_id_fk, email, phone])
+}
+
+model student_application {
+  id                   String @id @default(uuid())
+  full_name            String
+  father_name          String
+  mother_name          String
+  contact_no           String
+  address              String
+  previous_school_name String
+  academic_results     String
+  current_grade        String
+  remarks              String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([full_name, father_name, mother_name, contact_no])
+}
+
+model notification {
+  id      String  @id @default(uuid())
+  title   String
+  content String?
+
+  type      String
+  entity_id String
+  entity    String
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model query_form {
+  id        String @id @default(uuid())
+  full_name String @unique
+  email     String @unique
+  phone     String @unique
+  subject   String
+  message   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model subscriber {
+  id    String @id @default(uuid())
+  email String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model user {
+  id         String  @id
+  email      String  @unique
+  first_name String   
+  last_name  String
+  role       Role    @default(ADMIN)
+  isActive   Boolean @default(true)
+  avatar_url String?
+  phone      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  EDITOR
+}
