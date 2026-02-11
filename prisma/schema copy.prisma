@@ -7,6 +7,7 @@ datasource db {
   url       = env("DATABASE_URL")
 }
 
+
 model blog {
   id            String @id @default(uuid())
   title         String @unique
@@ -292,7 +293,7 @@ model subscriber {
 model user {
   id         String  @id
   email      String  @unique
-  first_name String
+  first_name String   
   last_name  String
   role       Role    @default(ADMIN)
   isActive   Boolean @default(true)
