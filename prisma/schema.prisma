@@ -11,7 +11,6 @@ datasource db {
 model blog {
   id            String @id @default(uuid())
   title         String @unique
-  content       String
   description   String @unique
   image_url     String
   thumbnail_url String
@@ -307,4 +306,29 @@ model user {
 enum Role {
   ADMIN
   EDITOR
+}
+
+model program {
+  id           String @id @default(uuid())
+  title        String @unique
+  grade        String @unique
+  description  String @unique
+  displayOrder Int    @unique
+
+  features program_feature[]
+
+  image_url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model program_feature {
+  id    String @id @default(uuid())
+  title String @unique
+
+  program_id_fk String
+  program       program @relation(fields: [program_id_fk], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

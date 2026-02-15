@@ -6,26 +6,25 @@ import prisma from "../../utils/prisma.js";
 export const createBlog = async (req) => {
     let uploadedFiles = []
     try {
-        const { title, content, description, tagColor, tagName } = req.body
+        const { title, description, tagName } = req.body
         const file = req.file
 
         // Validation
-        if (!title || !content || !description || !tagName) {
+        if (!title || !description || !tagName) {
             throw new AppError("Title, content, description, and tagName are required", 400);
         }
         if (!file) {
             throw new AppError("Image is required. Only jpeg, jpg, png are allowed", 400);
         }
 
-        // 1. Tag processing (can be done while storage is warming up, or first)
-        let tag = await prisma.blog_tag.upsert({
-            where: { name: tagName.toLowerCase() },
-            update: {},
-            create: {
-                name: tagName.toLowerCase(),
-                color: tagColor || "#000000"
-            }
+        // getting tag id
+        let tag = await prisma.blog_tag.findUnique({
+            where: { name: tagName },
         })
+
+        if (!tag) {
+            throw new AppError("Tag not found", 404);
+        }
 
         // 2. Parallel image processing and uploads
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`
@@ -63,7 +62,6 @@ export const createBlog = async (req) => {
             const blog = await prisma.blog.create({
                 data: {
                     title,
-                    content,
                     description,
                     image_url: imageUrl,
                     thumbnail_url: thumbnailUrl,

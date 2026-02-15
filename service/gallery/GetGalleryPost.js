@@ -7,9 +7,11 @@ export const getGalleryPost = async (req) => {
         const { limit, page, start, end } = pagination(req, 10, 50)
         const total_items = await prisma.gallery_post.count()
         const total_pages = Math.ceil(total_items / limit)
-        const galleryPost = await prisma.gallery_post.findMany({
+        const gallery_post = await prisma.gallery_post.findMany({
             select: {
                 id: true,
+                title: true,
+                caption: true,
                 images: {
                     select: {
                         id: true,
@@ -21,7 +23,7 @@ export const getGalleryPost = async (req) => {
             take: limit,
             skip: start
         })
-        if (!galleryPost) {
+        if (!gallery_post) {
             throw new AppError('Gallery post not found', 404)
         }
         return {
@@ -29,7 +31,7 @@ export const getGalleryPost = async (req) => {
             total_pages,
             current_page_number: page,
             limit_items: limit,
-            galleryPost
+            gallery_post
         }
 
     } catch (error) {

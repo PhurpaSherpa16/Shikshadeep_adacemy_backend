@@ -6,7 +6,7 @@ import prisma from "../../utils/prisma.js";
 export const updateBlog = async (req) => {
     try {
         const { id } = req.params
-        const { title, content, description, tagColor, tagName } = req.body
+        const { title, description, tagName} = req.body
         const file = req.file
 
         // validation check
@@ -24,24 +24,19 @@ export const updateBlog = async (req) => {
         }
 
         // check if all fields are not empty
-        if (!title || !content || !description || !tagName || !tagColor) {
-            console.log(title, content, description, tagName, tagColor);
-            throw new AppError("Title, content, description, and tagName are required fields", 400)
+        if (!title || !description || !tagName) {
+            console.log(title, description, tagName);
+            throw new AppError("Title, description, and tagName are required fields", 400)
         }
 
         let tagId = existingBlog.tag_id_fk
 
         if (tagName) {
             let tag = await prisma.blog_tag.findUnique({
-                where: { name: tagName.toLowerCase() }
+                where: { name: tagName }
             })
             if (!tag) {
-                tag = await prisma.blog_tag.create({
-                    data: {
-                        name: tagName.toLowerCase(),
-                        color: tagColor || "#000000"
-                    }
-                })
+                throw new AppError("Tag not found", 404);
             }
             tagId = tag.id
         }
@@ -87,7 +82,6 @@ export const updateBlog = async (req) => {
                 where: { id: id },
                 data: {
                     title: title,
-                    content: content,
                     description: description,
                     image_url: newImageUrl,
                     thumbnail_url: newThumbnailUrl,

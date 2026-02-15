@@ -87,3 +87,25 @@ export const uploadImage = multer({
         }
     },
 }).single('image_url')
+
+// Program image upload
+export const uploadProgramImage = multer({
+    storage, limits: { fileSize: 1024 * 1024 * 5 },
+    fileFilter: (req, file, cb) => {
+        if (file.fieldname === "image") {
+            const allowedMimeTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/jpg",
+                "image/webp"
+            ]
+            if (allowedMimeTypes.includes(file.mimetype)) {
+                cb(null, true)
+            } else {
+                cb(new Error("Invalid file type. Only image files are allowed."))
+            }
+        } else {
+            cb(new Error("Invalid file field name."))
+        }
+    },
+}).single('image')

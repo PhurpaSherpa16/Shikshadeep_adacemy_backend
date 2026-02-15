@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import { errorHandler, urlNotFound } from './middleware/errorHandler.js';
 import blogRouter from './routes/blog.routes.js'
+import programRouter from './routes/program.routes.js'
 import galleryRouter from './routes/gallery.routes.js'
 import schoolDataRouter from './routes/schoolData.routes.js'
 import newAdmissionRouter from './routes/newAdmissionApplication.routes.js'
@@ -18,6 +19,7 @@ app.use(express.json())
 
 // API endpoints root
 app.use('/blogs', blogRouter)
+app.use('/programs', programRouter)
 app.use('/gallery', galleryRouter)
 app.use('/school', schoolDataRouter)
 app.use('/admission', newAdmissionRouter)

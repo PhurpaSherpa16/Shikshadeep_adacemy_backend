@@ -11,7 +11,6 @@ export const getSingleBlog = async (req) => {
             select: {
                 id: true,
                 title: true,
-                content: true,
                 description: true,
                 image_url: true,
                 thumbnail_url: true,
