@@ -16,10 +16,13 @@ export const signIn = async (req) => {
                 case "invalid_credentials":
                 case "user_not_found":
                 case "wrong_password":
+                    console.log('error', error)
                     throw new AppError("Invalid email or password.", 400)
                 case "email_not_confirmed":
+                    console.log('error', error)
                     throw new AppError("Email not confirmed. Please confirm your email.", 400)
                 default:
+                    console.log('error', error);
                     throw new AppError("SignIn failed. Please try again.", 400)
             }
         }
@@ -36,7 +39,10 @@ export const signIn = async (req) => {
                 isActive: true,
             }
         })
-        if(!userData) throw new AppError("User not found.", 400)
+        if(!userData) {
+            console.log('user not found: ', userData)
+            throw new AppError("User not found.", 400)
+        }
 
         return {
             user: userData,
@@ -49,6 +55,6 @@ export const signIn = async (req) => {
     } catch (error) {
         console.log(error)
         if (error instanceof AppError) throw error
-        throw new AppError('SignIn failed, please try again later.', 400)
+        throw new AppError(`SignIn failed, please try again later. ${error}`, 400)
     }
 };
