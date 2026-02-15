@@ -1,5 +1,6 @@
 import { supabase } from '../../utils/supabase.js';
 import AppError from "../../utils/appError.js";
+import prisma from '../../utils/prisma.js';
 
 export const signIn = async (req) => {
     try {
