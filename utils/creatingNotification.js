@@ -1,12 +1,3 @@
-// Post - creating notification
-/**
- * Create a notification
- * @param {Object} params
- * @param {string} params.title - Notification title
- * @param {string} params.description - Notification message/content
- * @param {string} params.type - Type of entity ("job", "application", etc)
- * @param {string} params.referenceId - ID of related entity
- */
 import { PrismaClient } from "@prisma/client"
 import AppError from "./appError.js"
 

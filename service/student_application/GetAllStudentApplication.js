@@ -4,7 +4,7 @@ import prisma from "../../utils/prisma.js";
 
 export const getAllStudentApplication = async (req) => {
     try {
-        const {page, limit, skip, sort} = pagination(req, 10, 50)
+        const {page, limit, skip} = pagination(req, 10, 50)
         const total = await prisma.student_application.count()
         if(!total) throw new AppError("No admission applications found.", 404)
         const result = await prisma.student_application.findMany({
@@ -15,10 +15,11 @@ export const getAllStudentApplication = async (req) => {
                 current_grade: true,
                 academic_results: true,
                 createdAt: true,
+                is_open: true
             },
             skip,
             take: limit,
-            orderBy: sort
+            orderBy: {createdAt: "desc"}
         })
         if(!result) throw new AppError("No, new admission applications found.", 404)
         return {

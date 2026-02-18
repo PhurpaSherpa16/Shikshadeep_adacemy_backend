@@ -1,7 +1,7 @@
 import { schoolService } from "../service/SchoolService.js";
 import CatchAsync from "../utils/catchAsync.js";
 
-export const postStudentApplicationController = CatchAsync(async (req, res, next) => {
+export const postStudentApplicationController = CatchAsync(async (req, res) => {
     const result = await schoolService.postStudentApplication(req)
     res.status(200).json({
         status: "success",
@@ -12,7 +12,7 @@ export const postStudentApplicationController = CatchAsync(async (req, res, next
 
 
 // All admission applications
-export const getAllStudentApplicationController = CatchAsync(async (req, res, next) => {
+export const getAllStudentApplicationController = CatchAsync(async (req, res) => {
     const result = await schoolService.getAllStudentApplication(req)
     res.status(200).json({
         status: "success",
@@ -22,7 +22,7 @@ export const getAllStudentApplicationController = CatchAsync(async (req, res, ne
 })
 
 // Single admission application
-export const getSingleStudentApplicationController = CatchAsync(async (req, res, next) => {
+export const getSingleStudentApplicationController = CatchAsync(async (req, res) => {
     const result = await schoolService.getSingleStudentApplication(req)
     res.status(200).json({
         status: "success",
@@ -32,11 +32,21 @@ export const getSingleStudentApplicationController = CatchAsync(async (req, res,
 })
 
 // Delete admission application
-export const deleteStudentApplicationController = CatchAsync(async (req, res, next) => {
+export const deleteStudentApplicationController = CatchAsync(async (req, res) => {
     const result = await schoolService.deleteStudentApplication(req)
     res.status(200).json({
         status: "success",
         message: "Admission application deleted successfully",
+        data: result
+    })
+})
+
+// Update admission application
+export const updateStudentApplicationController = CatchAsync(async (req, res) => {
+    const result = await schoolService.updateStudentApplication(req)
+    res.status(200).json({
+        status: "success",
+        message: "Admission application updated successfully",
         data: result
     })
 })

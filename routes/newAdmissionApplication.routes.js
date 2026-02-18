@@ -1,6 +1,6 @@
 import express from "express"
 import multer from "multer"
-import { postStudentApplicationController, getAllStudentApplicationController, getSingleStudentApplicationController, deleteStudentApplicationController } from "../controller/student.newAdmissioncontroller.js"
+import { postStudentApplicationController, getAllStudentApplicationController, getSingleStudentApplicationController, deleteStudentApplicationController, updateStudentApplicationController } from "../controller/student.newAdmissioncontroller.js"
 
 const router = express.Router()
 const upload = multer()
@@ -13,7 +13,9 @@ const upload = multer()
     // Delete admission application
     router.delete("/remove/:id", deleteStudentApplicationController)
 
-
+// PATCH
+    // Update admission application
+    router.patch("/update/:id", upload.none(), updateStudentApplicationController)
 
 
 // GET

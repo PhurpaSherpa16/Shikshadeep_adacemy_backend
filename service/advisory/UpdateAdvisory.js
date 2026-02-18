@@ -6,13 +6,11 @@ import sharp from "sharp"
 export const updateAdvisory = async (req) => {
     try {
         const { id } = req.params
-        const { name, designation, quotes, isActive } = req.body
+        const { name, designation, quotes, isActive, image_url } = req.body
+        console.log(name, image_url)
         const file = req.file
         if (!id) {
             throw new AppError('Id is required', 400)
-        }
-        if (!file) {
-            throw new AppError('Image is required', 400)
         }
         if (!name || !quotes) {
             throw new AppError('All fields are required', 400)
@@ -29,9 +27,8 @@ export const updateAdvisory = async (req) => {
 
         // image upload
         if (file) {
-            newImageName = 'Advisory-' + uniqueSuffix + '-' + file.originalname
-            const thumbBuffer = await sharp(file.buffer).resize(300, 200).toBuffer()
-            const { error: imageError } = await supabase.storage.from('school').upload(newImageName, thumbBuffer, { contentType: file.mimetype })
+            newImageName = `advisory/Advisory-${uniqueSuffix}-${file.originalname}`
+            const { error: imageError } = await supabase.storage.from('school').upload(newImageName, file.buffer, { contentType: file.mimetype })
             if (imageError) {
                 console.log('Image uploading error', imageError);
                 throw new AppError(`Image upload failed, please try again later`, 400)

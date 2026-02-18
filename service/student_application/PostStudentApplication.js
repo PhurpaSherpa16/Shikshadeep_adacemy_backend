@@ -32,6 +32,7 @@ export const postStudentApplication = async (req) => {
                     academic_results : academic_results.trim(),
                     current_grade : current_grade.trim(),
                     remarks : remarks.trim(),
+                    is_open : false
         }})
 
         // creating notification

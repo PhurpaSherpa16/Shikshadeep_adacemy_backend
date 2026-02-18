@@ -40,3 +40,13 @@ export const getSingleQuery = CatchAsync(async (req, res) => {
         data: result
     })
 })
+
+// Update query
+export const patchQuery = CatchAsync(async (req, res) => {
+    const result = await schoolService.patchQuery(req)
+    res.status(200).json({
+        success: true,
+        message: "Query updated successfully",
+        data: result
+    })
+})

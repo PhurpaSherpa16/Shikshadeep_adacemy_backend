@@ -1,7 +1,7 @@
 import AppError from "../../utils/appError.js"
 import prisma from "../../utils/prisma.js"
 
-export const getAdvisory = async (req) => {
+export const getAdvisory = async () => {
     try {
         const advisory = await prisma.school_advisory_council.findMany({
             select: {

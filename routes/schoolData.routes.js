@@ -1,8 +1,8 @@
 import express from "express";
 import { getSchoolDetails, updateSchoolDetails } from "../controller/school.getSchoolDetailscontroller.js";
-import { createAdvisory, deleteAdvisory, getAdvisory, updateAdvisory } from "../controller/school.advisoryManagecontroller.js";
+import { createAdvisory, deleteAdvisory, getAdvisory, updateAdvisory, getSingleAdvisory} from "../controller/school.advisoryManagecontroller.js";
 import multer from "multer"
-import { createTeacher, deleteTeacher, getTeacher, updateTeacher } from "../controller/school.teacherManagecontroller.js";
+import { createTeacher, deleteTeacher, getSingleTeacher, getTeacher, updateTeacher } from "../controller/school.teacherManagecontroller.js";
 import { createFlashNotice, deleteFlashNotice, getFlashNotice, updateFlashNotice, createNoticeBoard, deleteNoticeBoard, getNoticeBoard, updateNoticeBoard } from "../controller/school.noticeManagecontroller.js";
 import { createJob, deleteJob, getAllJobApplication, getJobs, getSingleJob, submitJobApplication, updateJob, getJobApplication, deleteJobApplication } from "../controller/school.careersManagecontroller.js";
 import { uploadImage, uploadJobFiles } from "../utils/multer.js";
@@ -59,8 +59,12 @@ router.delete("/job/application/delete/:id", deleteJobApplication)
 router.get("/", getSchoolDetails)
 // Advisory getting
 router.get("/advisory", getAdvisory)
+// Single Advisory getting
+router.get("/advisory/:id", getSingleAdvisory)
 // Teacher getting
 router.get("/teachers", getTeacher)
+// Single Teacher getting
+router.get("/teacher/:id", getSingleTeacher)
 // Flash Notice getting
 router.get("/flash-notice", getFlashNotice)
 // Notice Board getting

@@ -21,6 +21,7 @@ export const getSingleStudentApplication = async (req) => {
                 current_grade: true,
                 remarks: true,
                 createdAt: true,
+                is_open: true
             }
         })
         if(!result) throw new AppError("Application not found.", 404)

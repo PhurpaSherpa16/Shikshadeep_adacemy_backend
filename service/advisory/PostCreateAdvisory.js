@@ -19,9 +19,8 @@ export const createAdvisory = async (req) => {
 
         // image upload
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`
-        const imageName = `Advisory-${uniqueSuffix}-${file.originalname}`
-        const thumbBuffer = await sharp(file.buffer).resize(300, 200).toBuffer()
-        const { error: imageError } = await supabase.storage.from('school').upload(imageName, thumbBuffer, { contentType: file.mimetype })
+        const imageName = `advisory/Advisory-${uniqueSuffix}-${file.originalname}`
+        const { error: imageError } = await supabase.storage.from('school').upload(imageName, file.buffer, { contentType: file.mimetype })
         if (imageError) {
             console.log('Image uploading error', imageError);
             throw new AppError(`Image upload failed, please try again later`, 400)

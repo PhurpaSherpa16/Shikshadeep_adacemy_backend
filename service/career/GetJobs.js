@@ -12,7 +12,29 @@ export const getJobs = async (req) => {
                 qualification: true,
                 experience: true,
                 jobType: true,
-                location: true
+                location: true,
+                salary: true,
+                isActive: true,
+                createdAt: true,
+                _count: {
+                    select: {
+                        jobApplications: true
+                    }
+                },
+                jobApplications: {
+                    take: 3,
+                    orderBy: {
+                        createdAt: 'desc'
+                    },
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        phone: true,
+                        resume_url: true,
+                        createdAt: true
+                    }
+                }
             },
             orderBy: {
                 createdAt: 'desc'

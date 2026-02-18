@@ -4,7 +4,7 @@ import prisma from "../../utils/prisma.js"
 
 export const getAllImages = async (req) => {
     try {
-        const { limit, page, start, end } = pagination(req, 9, 50)
+        const { limit, page, start } = pagination(req, 9, 50)
         const total_items = await prisma.gallery_image.count()
         const total_pages = Math.ceil(total_items / limit)
 

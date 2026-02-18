@@ -44,3 +44,14 @@ export const getAdvisory = CatchAsync(async(req, res, next) =>{
         data : advisory
     })
 })
+
+// GET : Get single advisory
+export const getSingleAdvisory = CatchAsync(async(req, res, next) =>{
+    const advisory = await schoolService.getSingleAdvisory(req)
+    res.json({
+        status : true,
+        success : true,
+        message : 'Advisory fetched successfully',
+        data : advisory
+    })
+})

@@ -28,8 +28,9 @@ export const createTeacher = async (req) => {
         const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`
         imageName = `teacher/Teacher-${uniqueSuffix}-${file.originalname}`
 
-        const imageBuffer = await sharp(file.buffer).resize(300, 200).toBuffer()
-        const { error: imageError } = await supabase.storage.from('school').upload(imageName, imageBuffer, {
+        const optimizedBuffer = await sharp(file.buffer).resize(1000, 667, {fit: 'cover',position: 'center'})
+        .webp({ quality: 80 }).toBuffer()
+        const { error: imageError } = await supabase.storage.from('school').upload(imageName, optimizedBuffer, {
             contentType: file.mimetype
         })
 
@@ -38,7 +39,7 @@ export const createTeacher = async (req) => {
             throw new AppError("Image upload failed", 400)
         }
 
-        const imageUrl = supabase.storage.from('school/teacher').getPublicUrl(imageName).data.publicUrl
+        const imageUrl = supabase.storage.from('school').getPublicUrl(imageName).data.publicUrl
 
         // 3. Database Entry
         try {

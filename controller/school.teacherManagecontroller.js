@@ -44,3 +44,15 @@ export const getTeacher = CatchAsync(async(req, res, next) =>{
         data : teacher
     })
 })
+
+// GET : Get single teacher
+export const getSingleTeacher = CatchAsync(async(req, res, next) =>{
+    const teacher = await schoolService.getSingleTeacher(req)
+    res.json({
+        status : true,
+        success : true,
+        message : 'Teacher fetched successfully',
+        data : teacher
+    })
+})
+

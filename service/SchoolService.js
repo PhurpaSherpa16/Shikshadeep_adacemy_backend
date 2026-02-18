@@ -26,11 +26,13 @@ import * as createAdvisory from './advisory/PostCreateAdvisory.js'
 import * as updateAdvisory from './advisory/UpdateAdvisory.js'
 import * as getAdvisory from './advisory/GetAdvisory.js'
 import * as deleteAdvisory from './advisory/DeleteAdvisory.js'
+import * as getSingleAdvisory from './advisory/GetSingleAdvisory.js'
 
 import * as createTeacher from './faculty/PostCreateTeacher.js'
 import * as updateTeacher from './faculty/UpdateTeacher.js'
 import * as getTeacher from './faculty/GetTeacher.js'
 import * as deleteTeacher from './faculty/DeleteTeacher.js'
+import * as getSingleTeacher from './faculty/GetSingleTeacher.js'
 
 import * as flashNotice from './flash_notice/PostFlashNotice.js'
 import * as getFlashNotice from './flash_notice/GetFlashNotice.js'
@@ -57,6 +59,7 @@ import * as postStudentApplication from './student_application/PostStudentApplic
 import * as getAllStudentApplication from './student_application/GetAllStudentApplication.js'
 import * as getSingleStudentApplication from './student_application/GetSingleStudentApplication.js'
 import * as deleteStudentApplication from './student_application/DeleteStudentApplication.js'
+import * as updateStudentApplication from './student_application/UpdateStudentApplication.js'
 
 import * as getAllNotification from './notification/GetAllNotification.js'
 import * as updateNotification from './notification/UpdateNotification.js'
@@ -68,11 +71,13 @@ import * as postQuery from './query_form/postQuery.js'
 import * as getAllQuery from './query_form/getAllQuery.js'
 import * as deleteQuery from './query_form/deleteQuery.js'
 import * as getSingleQuery from './query_form/getSingleQuery.js'
+import * as patchQuery from './query_form/patchQuery.js'
 
 import * as postSubscriber from './subscriber/postSubscriber.js'
 import * as getAllSubscriber from './subscriber/getAllSubscriber.js'
 import * as getSingleSubscriber from './subscriber/getSingleSubscriber.js'
 import * as deleteSubscriber from './subscriber/deleteSubscriber.js'
+
 
 export const schoolService = {
     ...createBlog,
@@ -103,11 +108,13 @@ export const schoolService = {
     ...updateAdvisory,
     ...getAdvisory,
     ...deleteAdvisory,
+    ...getSingleAdvisory,
 
     ...createTeacher,
     ...updateTeacher,
     ...getTeacher,
     ...deleteTeacher,
+    ...getSingleTeacher,
 
     ...flashNotice,
     ...getFlashNotice,
@@ -133,6 +140,7 @@ export const schoolService = {
     ...getAllStudentApplication,
     ...getSingleStudentApplication,
     ...deleteStudentApplication,
+    ...updateStudentApplication,
 
     ...getAllNotification,
     ...updateNotification,
@@ -144,6 +152,7 @@ export const schoolService = {
     ...getAllQuery,
     ...deleteQuery,
     ...getSingleQuery,
+    ...patchQuery,
 
     ...postSubscriber,
     ...getAllSubscriber,

@@ -226,6 +226,7 @@ model job_application {
   phone        String
   cover_letter String?
   resume_url   String?
+  is_open      Boolean @default(false)
 
   job_vacancy_id_fk String
   job_vacancy       job_vacancy @relation(fields: [job_vacancy_id_fk], references: [id], onDelete: Cascade)
@@ -237,7 +238,7 @@ model job_application {
 }
 
 model student_application {
-  id                   String @id @default(uuid())
+  id                   String  @id @default(uuid())
   full_name            String
   father_name          String
   mother_name          String
@@ -247,6 +248,7 @@ model student_application {
   academic_results     String
   current_grade        String
   remarks              String
+  is_open              Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -270,12 +272,13 @@ model notification {
 }
 
 model query_form {
-  id        String @id @default(uuid())
-  full_name String @unique
-  email     String @unique
-  phone     String @unique
+  id        String  @id @default(uuid())
+  full_name String  @unique
+  email     String  @unique
+  phone     String  @unique
   subject   String
   message   String
+  is_open   Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

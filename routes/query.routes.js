@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteQuery, getAllQuery, getSingleQuery, postQuery } from "../controller/school.querycontroller.js";
+import { deleteQuery, getAllQuery, getSingleQuery, postQuery, patchQuery } from "../controller/school.querycontroller.js";
 import multer from "multer";
 
 const router = express.Router();
@@ -10,7 +10,8 @@ const upload = multer()
     router.post("/post", upload.none(), postQuery)
     // Delete query
     router.delete("/remove/:id", deleteQuery)
-
+    // Update query
+    router.patch("/update/:id", upload.none(), patchQuery)
 
 // GET query actions
     // Get all queries

@@ -1,4 +1,5 @@
 import AppError from "../../utils/appError.js"
+import { creatingNotification } from "../../utils/creatingNotification.js"
 import prisma from "../../utils/prisma.js"
 
 export const postQuery = async (req) => {
@@ -15,9 +16,23 @@ export const postQuery = async (req) => {
                 email: email.trim().toLowerCase(),
                 phone: phone.trim(),
                 subject: subject.trim().toLowerCase(),
-                message: message.trim()
+                message: message.trim(),
+                is_open: false
             }
         })
+
+        // insert to notification
+        if(result){
+            await creatingNotification(
+                "New Query",
+                full_name,
+                "query",
+                result.id,
+                "query_form",
+                true
+            )
+        }
+
         return result
 
     } catch (error) {
