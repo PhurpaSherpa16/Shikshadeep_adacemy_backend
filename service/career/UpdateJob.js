@@ -6,7 +6,7 @@ export const updateJob = async (req) => {
     try {
         const { id } = req.params
         const { title, description, requirements, qualification, experience,
-            jobType, salary, location, startDate, endDate, remarks, isActive } = req.body
+            jobType, salary, location, startDate, endDate, remarks, isActive, no_of_applicants } = req.body
         const files = req.files || {}
 
         if (!id) {
@@ -34,20 +34,20 @@ export const updateJob = async (req) => {
         if (!removeDocument) {
             // Handle document
             const file = files.document_url?.[0] || null
-            if (!file) {
-                throw new AppError("Document is required", 400)
-            }
-            const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`
-            const docName = decodeURIComponent(`/job-document/Job-Doc-${uniqueSuffix}-${file.originalname}`)
+            
+            if (file) {
+                const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`
+                const docName = decodeURIComponent(`/job-document/Job-Doc-${uniqueSuffix}-${file.originalname}`)
 
-            const { error: docError } = await supabase.storage.from('files').upload(docName, file.buffer, { contentType: file.mimetype })
-            if (docError) throw new AppError(`Document upload failed`, 400)
-            documentUrl = supabase.storage.from('files').getPublicUrl(docName).data.publicUrl
+                const { error: docError } = await supabase.storage.from('files').upload(docName, file.buffer, { contentType: file.mimetype })
+                if (docError) throw new AppError(`Document upload failed`, 400)
+                documentUrl = supabase.storage.from('files').getPublicUrl(docName).data.publicUrl
 
-            // Delete old document
-            if (job.document_url) {
-                const oldDocName = decodeURIComponent(`job-document/${job.document_url.split('/').pop()}`)
-                await supabase.storage.from('files').remove([oldDocName])
+                // Delete old document
+                if (job.document_url) {
+                    const oldDocName = decodeURIComponent(`job-document/${job.document_url.split('/').pop()}`)
+                    await supabase.storage.from('files').remove([oldDocName])
+                }
             }
         }
 
@@ -66,6 +66,7 @@ export const updateJob = async (req) => {
                 endDate: endDate ? new Date(endDate) : job.endDate,
                 remarks: remarks !== undefined ? remarks : job.remarks,
                 isActive: isActive !== undefined ? (isActive === 'true' || isActive === true) : job.isActive,
+                no_of_applicants: no_of_applicants !== undefined ? no_of_applicants : job.no_of_applicants,
                 document_url: documentUrl
             }
         })

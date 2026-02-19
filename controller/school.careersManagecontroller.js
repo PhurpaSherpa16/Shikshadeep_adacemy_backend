@@ -22,6 +22,17 @@ export const getJobs = CatchAsync(async (req, res, next) => {
     })
 })
 
+// VACANCY ANNOUNCEMENT
+export const getVacancyAnnouncement = CatchAsync(async (req, res, next) => {
+    const announcement = await schoolService.getVacancyAnnouncement(req)
+    res.json({
+        status: true,
+        success: true,
+        message: 'Vacancy announcement fetched successfully',
+        data: announcement
+    })
+})
+
 export const updateJob = CatchAsync(async (req, res, next) => {
     const job = await schoolService.updateJob(req)
     res.json({
@@ -94,5 +105,16 @@ export const deleteJobApplication = CatchAsync(async (req, res, next) => {
         success: true,
         message: 'Job application deleted successfully',
         data: application
+    })
+})
+
+// GET JOB BY ID AND CORRESPONDING APPLICANTS
+export const getJobByIdAndCorrespondingApplicants = CatchAsync(async (req, res, next) => {
+    const job = await schoolService.getJobByIdAndCorrespondingApplicants(req)
+    res.json({
+        status: true,
+        success: true,
+        message: 'Job fetched successfully',
+        data: job
     })
 })

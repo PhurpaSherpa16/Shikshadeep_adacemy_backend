@@ -49,11 +49,13 @@ import * as getJobs from './career/GetJobs.js'
 import * as updateJob from './career/UpdateJob.js'
 import * as deleteJob from './career/DeleteJob.js'
 import * as getSingleJob from './career/GetSingleJob.js'
+import * as getVacancyAnnouncement from './career/GetVacancyAnnouncement.js'
 
 import * as submitJobApplication from './career/SubmitJobApplication.js'
 import * as getAllJobApplication from './career/GetAllJobApplication.js'
 import * as getJobApplication from './career/GetJobApplication.js'
 import * as deleteJobApplication from './career/DeleteJobApplication.js'
+import * as getJobByIdAndCorrespondingApplicants from './career/GetJobByIdAndCorrespondingApplicants.js'
 
 import * as postStudentApplication from './student_application/PostStudentApplication.js'
 import * as getAllStudentApplication from './student_application/GetAllStudentApplication.js'
@@ -135,6 +137,8 @@ export const schoolService = {
     ...getAllJobApplication,
     ...getJobApplication,
     ...deleteJobApplication,
+    ...getJobByIdAndCorrespondingApplicants,
+    ...getVacancyAnnouncement,
 
     ...postStudentApplication,
     ...getAllStudentApplication,

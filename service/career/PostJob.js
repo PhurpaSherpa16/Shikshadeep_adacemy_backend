@@ -4,7 +4,7 @@ import { supabase } from "../../utils/supabase.js"
 
 export const createJob = async (req) => {
     try {
-        const { title, description, requirements, qualification, experience, jobType, salary, location, startDate, endDate, remarks, isActive } = req.body
+        const { title, description, requirements, qualification, experience, jobType, salary, location, startDate, endDate, remarks, no_of_applicants } = req.body
         const files = req.files
 
         if (!title || !description) {
@@ -38,7 +38,8 @@ export const createJob = async (req) => {
                     startDate: startDate ? new Date(startDate) : null,
                     endDate: endDate ? new Date(endDate) : null,
                     remarks: remarks.toLowerCase() || null,
-                    isActive: isActive === 'true' || isActive === true,
+                    isActive: true,
+                    no_of_applicants: no_of_applicants || 1,
                     document_url: documentUrl,
                 }
             })

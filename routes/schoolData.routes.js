@@ -4,7 +4,7 @@ import { createAdvisory, deleteAdvisory, getAdvisory, updateAdvisory, getSingleA
 import multer from "multer"
 import { createTeacher, deleteTeacher, getSingleTeacher, getTeacher, updateTeacher } from "../controller/school.teacherManagecontroller.js";
 import { createFlashNotice, deleteFlashNotice, getFlashNotice, updateFlashNotice, createNoticeBoard, deleteNoticeBoard, getNoticeBoard, updateNoticeBoard } from "../controller/school.noticeManagecontroller.js";
-import { createJob, deleteJob, getAllJobApplication, getJobs, getSingleJob, submitJobApplication, updateJob, getJobApplication, deleteJobApplication } from "../controller/school.careersManagecontroller.js";
+import { createJob, deleteJob, getAllJobApplication, getJobs, getVacancyAnnouncement, getSingleJob, submitJobApplication, updateJob, getJobApplication, deleteJobApplication, getJobByIdAndCorrespondingApplicants } from "../controller/school.careersManagecontroller.js";
 import { uploadImage, uploadJobFiles } from "../utils/multer.js";
 
 const router = express.Router()
@@ -71,8 +71,12 @@ router.get("/flash-notice", getFlashNotice)
 router.get("/notice-board", getNoticeBoard)
 // Jobs getting
 router.get("/jobs", getJobs)
+// VacancyAnnouncement
+router.get("/vacancy-announcement", getVacancyAnnouncement)
 // View job
 router.get("/job/:id", getSingleJob)
+// View job with applications
+router.get("/job-applications/:id", getJobByIdAndCorrespondingApplicants)
 // Job All applications getting
 router.get("/job/all/applications", getAllJobApplication)
 // Job Application getting
