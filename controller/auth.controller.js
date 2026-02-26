@@ -30,13 +30,3 @@ export const logout = CatchAsync(async (req, res, next) => {
         data: data
     })
 })
-
-export const updateProfile = CatchAsync(async (req, res, next) => {
-    const data = await authService.updateProfile(req)
-    res.status(200).json({
-        status: true,
-        success: true,
-        message: 'Profile updated successfully',
-        data: data
-    })
-})

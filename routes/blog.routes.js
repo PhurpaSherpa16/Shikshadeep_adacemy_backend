@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { deleteBlog, postBlog, updateBlog } from "../controller/school.blogCRUDcontroller.js";
-import { getAllBlogs, getBlogTag, getSingleBlog, getBlogsByTag, getBlogsBySearch } from "../controller/school.blogGETcontroller.js";
+import { getAllBlogs, getBlogTag, getSingleBlog, getBlogsByTag, getBlogsBySearch, getRelatedBlogs } from "../controller/school.blogGETcontroller.js";
 import { uploadBlogImage } from "../utils/multer.js";
 
 const router = express.Router();
@@ -25,6 +25,10 @@ const upload = multer({ storage: multer.memoryStorage() })
     router.get("/tag", getBlogTag)
     // Filter blogs by tag
     router.get("/tag/:tag", getBlogsByTag)
+
+    // Filtering related blog
+    router.get("/tag/:id/related", getRelatedBlogs)
+
     // Filter blogs by search
     router.get("/search", getBlogsBySearch)
 

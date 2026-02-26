@@ -61,7 +61,7 @@ export const updateTeacher = async (req) => {
                     name: name.toLowerCase(),
                     designation: designation.toLowerCase(),
                     quotes: quotes.toLowerCase(),
-                    experience: experience.toLowerCase(),
+                    experience: parseInt(experience),
                     qualification: qualification.toLowerCase(),
                     isActive: isActive === 'true',
                     teacherTagId_fk: updatedTeacherTagId,

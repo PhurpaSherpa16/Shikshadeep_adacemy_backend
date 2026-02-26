@@ -45,3 +45,12 @@ export const getBlogsBySearch = CatchAsync(async (req, res, next) =>{
         data: blogs
     })
 })
+
+export const getRelatedBlogs = CatchAsync(async (req, res, next) => {
+    const blogs = await schoolService.getRelatedBlogs(req)
+    res.json({
+        success: true,
+        message: 'Blogs fetched successfully',
+        data: blogs
+    })
+})

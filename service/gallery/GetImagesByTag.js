@@ -4,7 +4,7 @@ import prisma from "../../utils/prisma.js"
 
 export const getImagesByTag = async (req) => {
 
-    const { page, limit, skip } = pagination(req, 10, 50)
+    const { page, limit, start } = pagination(req, 9, 50)
 
     try {
         const total_items = await prisma.gallery_image.count({ where: { tags: { some: { tag: { name: req.query.q.toLowerCase() } } } } })
@@ -12,18 +12,7 @@ export const getImagesByTag = async (req) => {
 
         const tag = req.query.q
 
-        if (!tag) {
-            throw new AppError('Tag is required', 400)
-        }
-
-        // Check if tag exists
-        const tagExists = await prisma.gallery_tag.findUnique({
-            where: { name: tag.toLowerCase() }
-        })
-
-        if (!tagExists) {
-            throw new AppError('No tag exists', 404)
-        }
+        if (!tag) throw new AppError('Tag is required', 400)
 
         // Get all images with the tag
         const images = await prisma.gallery_image.findMany({
@@ -57,13 +46,11 @@ export const getImagesByTag = async (req) => {
                 }
             },
             take: limit,
-            skip: skip,
+            skip: start,
             orderBy: { createdAt: 'desc' }
         })
 
-        if (!images || images.length === 0) {
-            throw new AppError('No images found for this tag', 404)
-        }
+        if (page > total_pages && total_pages !== 0) throw new AppError('Page exceeds total pages', 400)
 
         return {
             total_items,

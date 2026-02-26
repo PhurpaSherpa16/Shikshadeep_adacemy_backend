@@ -3,7 +3,6 @@ import prisma from "../../utils/prisma.js"
 
 export const getTeacher = async (req) => {
     try {
-
         const data = await prisma.faculty_member.findMany({
             select: {
                 id: true,
@@ -15,6 +14,9 @@ export const getTeacher = async (req) => {
                 qualification: true,
                 image_url: true,
                 teacherTag: { select: { name: true } }
+            },
+            orderBy: {
+                experience: 'desc'
             }
         })
 

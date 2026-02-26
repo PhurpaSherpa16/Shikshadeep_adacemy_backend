@@ -56,3 +56,14 @@ export const getSingleTeacher = CatchAsync(async(req, res, next) =>{
     })
 })
 
+// Get All teachers not grouped
+export const getAllTeachers = CatchAsync(async(req, res, next) =>{
+    const teacher = await schoolService.getAllTeachers(req)
+    res.json({
+        status : true,
+        success : true,
+        message : 'Teacher fetched successfully',
+        data : teacher
+    })
+})
+

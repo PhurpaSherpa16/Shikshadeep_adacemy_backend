@@ -27,8 +27,10 @@ export const getBlogsByTag = async (req) => {
             take: limit,
             skip: start
         })
+
         if(blogs.length === 0) throw new AppError('No blogs found for this tag')
         const total_items = await prisma.blog.count({where:{tag:{name : normalizedTag}}})
+        
         return {
             total_items,
             total_pages: Math.ceil(total_items / limit),

@@ -11,6 +11,7 @@ import notificationRouter from './routes/notifications.routes.js'
 import queryRouter from "./routes/query.routes.js";
 import subscriptionRouter from "./routes/subscription.routes.js";
 import authRouter from "./routes/auth.routes.js";
+import userRouter from "./routes/user.routes.js";
 
 const app = express()
 
@@ -27,6 +28,7 @@ app.use('/notification', notificationRouter)
 app.use('/query', queryRouter)
 app.use('/subscriber', subscriptionRouter)
 app.use('/auth', authRouter)
+app.use('/user', userRouter)
 
 // error handler
 app.use(errorHandler)

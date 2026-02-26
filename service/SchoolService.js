@@ -6,6 +6,7 @@ import * as allBlog from './blog/AllBlog.js'
 import * as getBlogTag from './blog/GetBlogTag.js'
 import * as getBlogsByTag from './blog/GetBlogsByTag.js'
 import * as getBlogsBySearch from './blog/GetBlogsBySearch.js'
+import * as getRelatedBlogs from './blog/GetRelatedBlogs.js'
 
 import * as uploadImages from './gallery/UploadImages.js'
 import * as deleteImage from './gallery/DeleteImage.js'
@@ -33,6 +34,7 @@ import * as updateTeacher from './faculty/UpdateTeacher.js'
 import * as getTeacher from './faculty/GetTeacher.js'
 import * as deleteTeacher from './faculty/DeleteTeacher.js'
 import * as getSingleTeacher from './faculty/GetSingleTeacher.js'
+import * as getAllTeachers from './faculty/GetAllTeachers.js'
 
 import * as flashNotice from './flash_notice/PostFlashNotice.js'
 import * as getFlashNotice from './flash_notice/GetFlashNotice.js'
@@ -90,6 +92,7 @@ export const schoolService = {
     ...getBlogTag,
     ...getBlogsByTag,
     ...getBlogsBySearch,
+    ...getRelatedBlogs,
 
     ...uploadImages,
     ...deleteImage,
@@ -117,6 +120,7 @@ export const schoolService = {
     ...getTeacher,
     ...deleteTeacher,
     ...getSingleTeacher,
+    ...getAllTeachers,
 
     ...flashNotice,
     ...getFlashNotice,

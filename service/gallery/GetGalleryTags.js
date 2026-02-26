@@ -1,9 +1,12 @@
 import AppError from "../../utils/appError.js"
 import prisma from "../../utils/prisma.js"
 
-export const getGalleryTags = async (req) => {
+export const getGalleryTags = async () => {
     try {
         const tags = await prisma.gallery_tag.findMany({
+            where : {
+                images : {some :{}}
+            },
             select: {
                 id: true,
                 name: true

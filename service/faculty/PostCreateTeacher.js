@@ -49,7 +49,7 @@ export const createTeacher = async (req) => {
                     designation: designation?.toLowerCase() || null,
                     quotes: quotes?.toLowerCase() || null,
                     isActive: isActive === 'true' || isActive === true,
-                    experience: experience?.toLowerCase() || null,
+                    experience: parseInt(experience) || null,
                     qualification: qualification?.toLowerCase() || null,
                     image_url: imageUrl,
                     teacherTagId_fk: tag.id
