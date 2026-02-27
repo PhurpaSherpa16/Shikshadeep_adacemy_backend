@@ -3,7 +3,7 @@ import { getSchoolDetails, updateSchoolDetails } from "../controller/school.getS
 import { createAdvisory, deleteAdvisory, getAdvisory, updateAdvisory, getSingleAdvisory} from "../controller/school.advisoryManagecontroller.js";
 import multer from "multer"
 import { createTeacher, deleteTeacher, getAllTeachers, getSingleTeacher, getTeacher, updateTeacher } from "../controller/school.teacherManagecontroller.js";
-import { createFlashNotice, deleteFlashNotice, getFlashNotice, updateFlashNotice, createNoticeBoard, deleteNoticeBoard, getNoticeBoard, updateNoticeBoard } from "../controller/school.noticeManagecontroller.js";
+import { createFlashNotice, deleteFlashNotice, getFlashNotice, updateFlashNotice, createNoticeBoard, deleteNoticeBoard, getNoticeBoard, updateNoticeBoard, getFlashNoticeForPublic} from "../controller/school.noticeManagecontroller.js";
 import { createJob, deleteJob, getAllJobApplication, getJobs, getVacancyAnnouncement, getSingleJob, submitJobApplication, updateJob, getJobApplication, deleteJobApplication, getJobByIdAndCorrespondingApplicants } from "../controller/school.careersManagecontroller.js";
 import { uploadImage, uploadJobFiles } from "../utils/multer.js";
 
@@ -44,7 +44,7 @@ router.post("/job/apply/:id", uploadJobFiles, submitJobApplication)
 router.delete("/advisory/delete/:id", deleteAdvisory)
 // Teacher deleting
 router.delete("/teacher/delete/:id", deleteTeacher)
-// Flash Notice deleting
+// Flash Notice deletinggit
 router.delete("/flash-notice/delete/:id", deleteFlashNotice)
 // Notice Board deleting
 router.delete("/notice-board/delete/:id", deleteNoticeBoard)
@@ -69,6 +69,8 @@ router.get("/teachers/all", getAllTeachers)
 router.get("/teacher/:id", getSingleTeacher)
 // Flash Notice getting
 router.get("/flash-notice", getFlashNotice)
+// Flash Notice getting for public
+router.get("/flash-notice/public", getFlashNoticeForPublic)
 // Notice Board getting
 router.get("/notice-board", getNoticeBoard)
 // Jobs getting

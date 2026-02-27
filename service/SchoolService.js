@@ -40,6 +40,7 @@ import * as flashNotice from './flash_notice/PostFlashNotice.js'
 import * as getFlashNotice from './flash_notice/GetFlashNotice.js'
 import * as updateFlashNotice from './flash_notice/UpdateFlashNotice.js'
 import * as deleteFlashNotice from './flash_notice/DeleteFlashNotice.js'
+import * as getFlashNoticeForPublic from './flash_notice/GetFlashNoticeForPublic.js'
 
 import * as noticeBoard from './notice/PostNoticeBoard.js'
 import * as getNoticeBoard from './notice/GetNoticeBoard.js'
@@ -126,6 +127,7 @@ export const schoolService = {
     ...getFlashNotice,
     ...updateFlashNotice,
     ...deleteFlashNotice,
+    ...getFlashNoticeForPublic,
 
     ...noticeBoard,
     ...getNoticeBoard,

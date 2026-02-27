@@ -52,16 +52,15 @@ export const createFlashNotice = async (req) => {
             if (imageName) {
                 const imageDelete = await supabase.storage.from('school').remove([imageName])
                     .catch(err => console.error("Rollback cleanup failed in createFlashNotice:", err))
-                if (imageDelete) {
+                if (!imageDelete) {
                     console.error('Image delete error in createFlashNotice:', imageDelete.error)
                     throw new AppError("Image delete failed.", 400)
                 }
             }
-            // Handle unique constraint error
             if (error.code === 'P2002') {
                 throw new AppError("A flash notice with this content already exists", 400)
             }
-            throw error // Caught by outer catch for rollback
+            throw error
         }
 
     } catch (error) {

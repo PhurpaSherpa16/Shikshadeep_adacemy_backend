@@ -2,12 +2,21 @@ import AppError from "../../utils/appError.js"
 import { pagination } from "../../utils/pagination.js"
 import prisma from "../../utils/prisma.js"
 
-export const getFlashNotice = async (req) => {
+export const getFlashNoticeForPublic = async (req) => {
     try {
         const {limit, page, start } = pagination(req, 10, 50)
 
         const [notices, total_items] = await Promise.all([
             prisma.school_flash_notice.findMany({
+                where: {
+                    isActive: true,
+                    endDate: {
+                        gte: new Date()
+                    },
+                    startDate: {
+                        lte: new Date()
+                    }
+                },
                 orderBy: {
                     createdAt: 'desc'
                 },

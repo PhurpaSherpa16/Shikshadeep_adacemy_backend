@@ -22,6 +22,16 @@ export const getFlashNotice = CatchAsync(async (req, res, next) => {
     })
 })
 
+export const getFlashNoticeForPublic = CatchAsync(async (req, res, next) => {
+    const notice = await schoolService.getFlashNoticeForPublic(req)
+    res.json({
+        status: true,
+        success: true,
+        message: 'Flash notice fetched successfully',
+        data: notice
+    })
+})
+
 export const updateFlashNotice = CatchAsync(async (req, res, next) => {
     const notice = await schoolService.updateFlashNotice(req)
     res.json({
