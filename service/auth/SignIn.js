@@ -1,4 +1,4 @@
-import { supabase } from '../../utils/supabase.js';
+import { supabaseLogin } from '../../utils/supabase.js';
 import AppError from "../../utils/appError.js";
 import prisma from '../../utils/prisma.js';
 
@@ -6,7 +6,8 @@ export const signIn = async (req) => {
     try {
         const { email, password } = req.body
         if (!email || !password) throw new AppError("Email and password are required.", 400)
-        const { data, error } = await supabase.auth.signInWithPassword({email,password,})
+        const { data, error } = await supabaseLogin.auth.signInWithPassword({email,password})
+        console.log(req.body)
         if (error) 
         {
             console.log(error);
