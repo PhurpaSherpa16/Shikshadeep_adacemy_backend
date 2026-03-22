@@ -12,6 +12,7 @@ import queryRouter from "./routes/query.routes.js";
 import subscriptionRouter from "./routes/subscription.routes.js";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
+import { startHitApiToKeepHealthy } from "./corn/Corn.js";
 
 const app = express()
 
@@ -30,6 +31,8 @@ app.use('/subscriber', subscriptionRouter)
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 
+startHitApiToKeepHealthy()
+
 // error handler
 app.use(errorHandler)
 
@@ -43,6 +46,5 @@ if (process.env.NODE_ENV !== "production") {
         console.log(`📊 API running at http://localhost:${PORT}/blogs`);
     })
 }
-console.log("DATABASE_URL:", process.env.DATABASE_URL)
 
 export default app

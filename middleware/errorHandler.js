@@ -54,7 +54,7 @@ export const errorHandler = (err, req, res, next) => {
 }
 
 // Error handling for url not found
-export const urlNotFound = (req, res, next) => {
+export const urlNotFound = (err, req, res, next) => {
     res.status(404).json({
         success: false,
         statusCode : 404,

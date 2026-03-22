@@ -13,4 +13,4 @@ export const signOut = async () => {
         if (error instanceof AppError) throw error
         throw new AppError(error.message, error.status || 400)
     }
-};
+}
