@@ -9,6 +9,8 @@ export const uploadImages = async (req) => {
         const { title, caption, tags } = req.body
         const files = req.files
 
+        console.log(req.body)
+
         if (!title || !caption || !tags) {
             throw new AppError('Title, caption, and tags are required', 400)
         }

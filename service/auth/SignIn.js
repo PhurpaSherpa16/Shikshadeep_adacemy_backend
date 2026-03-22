@@ -6,9 +6,7 @@ export const signIn = async (req) => {
     try {
         const { email, password } = req.body
         if (!email || !password) throw new AppError("Email and password are required.", 400)
-
         const { data, error } = await supabase.auth.signInWithPassword({email,password,})
-
         if (error) 
         {
             console.log(error);
@@ -24,7 +22,6 @@ export const signIn = async (req) => {
                     throw new AppError("SignIn failed. Please try again.", 400)
             }
         }
-
         const userData = await prisma.user.findUnique({where: {id: data.user.id},
             select: {
                 id: true,
@@ -50,6 +47,7 @@ export const signIn = async (req) => {
             }
         }
     } catch (error) {
+        console.log('error', error);
         if (error instanceof AppError) throw error
         throw new AppError(`SignIn failed, please try again later. ${error}`, 400)
     }
