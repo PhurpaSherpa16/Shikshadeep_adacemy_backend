@@ -6,7 +6,7 @@ export const supabase = createClient(
 )
 
 // For ADMIN tasks
-const supabaseLogin = createClient(
+export const supabaseLogin = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_ANON_KEY
 )
